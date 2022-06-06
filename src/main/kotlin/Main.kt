@@ -9,10 +9,28 @@ import java.util.stream.Collectors
 data class Commit(
     val id: String,
     val author: String,
-    val Date: Instant,
+    val date: Instant,
     val filenames: List<String>,
     val message: String,
-)
+) {
+    override fun toString(): String {
+        val sb = java.lang.StringBuilder()
+
+        sb.append("""
+            $id
+            $author
+            $date
+            
+            $message
+            
+        """.trimIndent())
+        for (filename in filenames) {
+           sb.append("- $filename\n")
+        }
+
+        return sb.toString()
+    }
+}
 
 fun main(args: Array<String>) {
     val commits = getCommits(args[0])
@@ -59,7 +77,7 @@ fun parse(lines: List<String>): Commit {
     return Commit(
         id = id,
         author = author,
-        Date = date,
+        date = date,
         filenames = filenames,
         message = message.toString(),
     )
