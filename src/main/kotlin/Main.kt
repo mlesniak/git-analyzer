@@ -67,6 +67,7 @@ private fun groupByCommits(log: List<String>): MutableList<List<String>> {
     var commit: MutableList<String> = mutableListOf()
     log.forEach { line ->
         if (segmentBegin.matcher(line).find()) {
+            // Add previous commit to list.
             if (commit.isNotEmpty()) {
                 commits.add(commit)
             }
@@ -74,6 +75,9 @@ private fun groupByCommits(log: List<String>): MutableList<List<String>> {
         }
         commit.add(line)
     }
+
+    commits.add(commit)
+
     return commits
 }
 
