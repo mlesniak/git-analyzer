@@ -15,13 +15,18 @@ data class Commit(
 )
 
 fun main(args: Array<String>) {
-    val log = getLog(args[0])
-    val rawCommits = groupByCommits(log)
-    val commits = rawCommits.map { parse(it) }
+    val commits = getCommits(args[0])
 
     commits.forEach { commit ->
         println(commit)
     }
+}
+
+private fun getCommits(repository: String): List<Commit> {
+    val log = getLog(repository)
+    val rawCommits = groupByCommits(log)
+    val commits = rawCommits.map { parse(it) }
+    return commits
 }
 
 fun parse(lines: List<String>): Commit {
