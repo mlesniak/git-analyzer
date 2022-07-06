@@ -9,7 +9,7 @@ import java.util.stream.Collectors
 typealias Commits = List<Commit>
 
 // TODO(mlesniak) Add caching?
-// TODO(mlesniak) Interface
+// TODO(mlesniak) Interface necessary?
 data class Commit(
     val id: String,
     val author: String,
@@ -20,27 +20,21 @@ data class Commit(
     override fun toString(): String {
         val sb = java.lang.StringBuilder()
 
-        sb.append("""
+        sb.append(
+            """
             $id
             $author
             $date
             
             $message
             
-        """.trimIndent())
+        """.trimIndent()
+        )
         for (filename in filenames) {
-           sb.append("- $filename\n")
+            sb.append("- $filename\n")
         }
 
         return sb.toString()
-    }
-}
-
-fun main(args: Array<String>) {
-    val commits = getCommits(args[0])
-
-    commits.forEach { commit ->
-        println(commit)
     }
 }
 
