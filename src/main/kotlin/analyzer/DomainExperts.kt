@@ -13,15 +13,10 @@ class DomainExperts(val commits: Commits) {
     private val experts: MutableMap<String, MutableMap<String, Int>> = mutableMapOf()
 
     fun analyze() {
-        commits.forEach {
-            process(it)
-        }
+        commits.forEach { process(it) }
 
         for (file in experts.keys) {
             // Ignore deleted and moved files for now.
-            if (!File(file).exists()) {
-                continue
-            }
 
             val authors = experts[file]!!
             println("--- $file")
@@ -31,6 +26,9 @@ class DomainExperts(val commits: Commits) {
 
     private fun process(commit: Commit) {
         for (file in commit.filenames) {
+            if (!File(file).exists()) {
+                continue
+            }
             val m = experts.getOrDefault(file, mutableMapOf())
             val count = m[commit.author] ?: 0
             m[commit.author] = count + 1
