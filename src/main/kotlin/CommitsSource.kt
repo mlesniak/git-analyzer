@@ -6,6 +6,10 @@ import java.time.Instant
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 
+typealias Commits = List<Commit>
+
+// TODO(mlesniak) Add caching?
+// TODO(mlesniak) Interface
 data class Commit(
     val id: String,
     val author: String,
@@ -40,7 +44,7 @@ fun main(args: Array<String>) {
     }
 }
 
-fun getCommits(repository: String): List<Commit> {
+fun getCommits(repository: String): Commits {
     val log = getLog(repository)
     val rawCommits = groupByCommits(log)
     val commits = rawCommits.map { parse(it) }
@@ -51,12 +55,21 @@ fun parse(lines: List<String>): Commit {
     val sdf = SimpleDateFormat("E MMM d HH:mm:ss yyyy Z")
 
     val id = lines[0].split(" ")[1]
-    val author = lines[1].split(": ")[1]
-    val rawDate = lines[2].split(':', ignoreCase = false, limit = 2)[1].trim()
+
+    val properties = mutableMapOf<String, String>()
+    var lineIdx = 1
+    while (lines[lineIdx].isNotEmpty()) {
+        val curLine = lines[lineIdx]
+        val parts = curLine.split(":", limit = 2)
+        properties[parts[0]] = parts[1].trim()
+        lineIdx++
+    }
+    val author = properties["Author"]!!
+    val rawDate = properties["Date"]!!
     val date = sdf.parse(rawDate).toInstant()
 
     val message = StringBuilder()
-    for (i in 4 until lines.size) {
+    for (i in lineIdx until lines.size) {
         if (lines[i].isEmpty()) {
             break
         }
