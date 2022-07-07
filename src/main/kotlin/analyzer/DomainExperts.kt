@@ -26,7 +26,7 @@ class DomainExperts(val commits: Commits) {
 
     private fun process(commit: Commit) {
         for (file in commit.filenames) {
-            if (!File(file).exists()) {
+            if (fileDoesNotExist(file)) {
                 continue
             }
             val m = experts.getOrDefault(file, mutableMapOf())
@@ -35,4 +35,6 @@ class DomainExperts(val commits: Commits) {
             experts[file] = m
         }
     }
+
+    private fun fileDoesNotExist(file: String) = !File(file).exists()
 }
