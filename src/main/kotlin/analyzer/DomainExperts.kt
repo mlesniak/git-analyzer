@@ -3,6 +3,7 @@ package com.mlesniak.main.analyzer
 import com.mlesniak.main.Commit
 import com.mlesniak.main.Commits
 import java.io.File
+import java.util.SortedMap
 import java.util.regex.Pattern
 
 typealias Package = String
@@ -15,6 +16,7 @@ typealias Occurences = Int
 // TODO(mlesniak) Date configuration as second parameter to allow filtering
 //                for a subset of dates.
 class DomainExperts(private val commits: Commits) {
+    // TODO(mlesniak) Domain specific class
     private val experts: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     fun analyze() {
@@ -27,6 +29,10 @@ class DomainExperts(private val commits: Commits) {
             println("--- $file")
             authors.forEach { println(it) }
         }
+    }
+
+    fun get(): SortedMap<Package, Map<Author, Occurences>> {
+        return experts.toSortedMap()
     }
 
     private fun process(commit: Commit) {

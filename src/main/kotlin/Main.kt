@@ -9,8 +9,20 @@ fun main(args: Array<String>) {
     val de = DomainExperts(commits)
     de.analyze()
 
-    // commits.forEach { commit ->
+    val m = de.get()
+    m.forEach { pckg ->
+        println("\n${pckg.key}")
 
-    //     println(commit)
-    // }
+        val occurences = pckg.value
+            .toList()
+            .sortedBy { (_, occ) -> occ }
+            .reversed()
+            .toMap()
+
+        occurences.forEach { author ->
+            println("${author.key}\t${author.value}")
+        }
+    }
+
+    // what now?
 }
