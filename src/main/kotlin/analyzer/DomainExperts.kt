@@ -5,13 +5,17 @@ import com.mlesniak.main.Commits
 import java.io.File
 import java.util.regex.Pattern
 
+typealias Package = String
+typealias Author = String
+typealias Occurences = Int
+
 /**
  * Map from package name to author, sorted by number of commits.
  */
-// TODO(mlesniak) Date configuration as second parameter
+// TODO(mlesniak) Date configuration as second parameter to allow filtering
+//                for a subset of dates.
 class DomainExperts(val commits: Commits) {
-    // package -> list of experts
-    private val experts: MutableMap<String, MutableMap<String, Int>> = mutableMapOf()
+    private val experts: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     fun analyze() {
         commits.forEach { process(it) }
@@ -34,7 +38,7 @@ class DomainExperts(val commits: Commits) {
             // We're only interested in files with package declaration.
             val pckg = determinePackage(file) ?: continue
 
-            val m = experts.getOrDefault(file, mutableMapOf())
+            val m = experts.getOrDefault(pckg, mutableMapOf())
             val count = m[commit.author] ?: 0
             m[commit.author] = count + 1
             experts[pckg] = m
