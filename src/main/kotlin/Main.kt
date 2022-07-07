@@ -1,4 +1,3 @@
-
 package com.mlesniak.main
 
 import com.mlesniak.main.analyzer.DomainExperts
@@ -11,6 +10,7 @@ fun main(args: Array<String>) {
     de.analyze()
 
     // commits.forEach { commit ->
+
     //     println(commit)
     // }
 }
