@@ -14,7 +14,7 @@ typealias Occurences = Int
  */
 // TODO(mlesniak) Date configuration as second parameter to allow filtering
 //                for a subset of dates.
-class DomainExperts(val commits: Commits) {
+class DomainExperts(private val commits: Commits) {
     private val experts: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     fun analyze() {
