@@ -1,0 +1,20 @@
+{
+  "com": [
+    {
+      "name": "Michael Lesniak",
+      "count": 10
+    }
+  ],
+  "com.bar": [
+    {
+      "name": "Michael Lesniak",
+      "count": 5
+    }
+  ],
+  "com.foo": [
+    {
+      "name": "Michael Lesniak",
+      "count": 5
+    }
+  ]
+}

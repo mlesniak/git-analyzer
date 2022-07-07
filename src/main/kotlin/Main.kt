@@ -24,5 +24,8 @@ fun main(args: Array<String>) {
         }
     }
 
-    // TODO(mlesniak) consolidate packages to parents
+    // TODO(mlesniak) json with list of all packages, and a consolidated mapping for all packages
+    // find list of all packages
+
+    // TODO(mlesniak) consolidate packages to parents (org.junit.platform.reporting)
 }
