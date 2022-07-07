@@ -24,5 +24,5 @@ fun main(args: Array<String>) {
         }
     }
 
-    // what now?
+    // TODO(mlesniak) consolidate packages to parents
 }
