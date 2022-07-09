@@ -1,6 +1,7 @@
-package com.mlesniak.main
+package com.mlesniak.git.analyzer
 
-import com.mlesniak.main.analyzer.DomainExperts
+import com.mlesniak.git.analyzer.analysis.DomainExperts
+import com.mlesniak.git.analyzer.source.getCommits
 
 // For later json export
 data class Package(

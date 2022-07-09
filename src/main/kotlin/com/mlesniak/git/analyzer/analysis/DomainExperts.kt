@@ -1,7 +1,7 @@
-package com.mlesniak.main.analyzer
+package com.mlesniak.git.analyzer.analysis
 
-import com.mlesniak.main.Commit
-import com.mlesniak.main.Commits
+import com.mlesniak.git.analyzer.source.Commit
+import com.mlesniak.git.analyzer.source.Commits
 import java.io.File
 import java.util.SortedMap
 import java.util.regex.Pattern
@@ -13,50 +13,13 @@ typealias Occurences = Int
 /**
  * Map from package name to author, sorted by number of commits.
  */
-// TODO(mlesniak) Date configuration as second parameter to allow filtering
-//                for a subset of dates.
+// TODO(mlesniak) Date configuration as second parameter to allow filtering for a subset of dates.
 class DomainExperts(private val commits: Commits) {
     // TODO(mlesniak) Domain specific class
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     fun analyze() {
         commits.forEach { process(it) }
-
-        packages = extendPackages(packages)
-    }
-
-    private fun extendPackages(packages: MutableMap<String, MutableMap<String, Int>>): MutableMap<String, MutableMap<String, Int>> {
-        val ps: MutableMap<String, MutableMap<String, Int>> = mutableMapOf()
-
-        for (pckg in packages) {
-            extendPackage(ps, pckg)
-        }
-
-        return ps
-    }
-
-    private fun extendPackage(
-        ps: MutableMap<String, MutableMap<String, Int>>,
-        pckg: MutableMap.MutableEntry<String, MutableMap<String, Int>>
-    ) {
-        // println("\nPackage is ${pckg.key}")
-        val parts = pckg.key.split(".")
-        // org.junit.platform.suite.engine.testsuites
-        for (i in 1..parts.size) {
-            val parent = parts.take(i).joinToString(separator = ".")
-            // println("\nCurrent package is $parent")
-
-            // org.junit.vintage.engine.samples
-            // Find entry for parent.
-            val parentPackageAuthors = ps.getOrDefault(parent, mutableMapOf())
-            // Add every author.
-            for (author in pckg.value) {
-                // println("Adding author value for $author")
-                val occs = parentPackageAuthors.getOrDefault(author.key, 0)
-                parentPackageAuthors[author.key] = occs + author.value
-                ps[parent] = parentPackageAuthors
-            }
-        }
     }
 
     fun get(): SortedMap<Package, Map<Author, Occurences>> {

@@ -1,4 +1,4 @@
-package com.mlesniak.main
+package com.mlesniak.git.analyzer.source
 
 import java.io.File
 import java.text.SimpleDateFormat
