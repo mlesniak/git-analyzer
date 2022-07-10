@@ -68,7 +68,7 @@ class GitLogParser(private val repository: Path) {
         )
     }
 
-    private fun groupByCommits(log: List<String>): MutableList<List<String>> {
+    private fun groupByCommits(log: List<String>): List<List<String>> {
         val commits = mutableListOf<List<String>>()
         val segmentBegin = Pattern.compile("^commit \\S{40}$")
         var commit: MutableList<String> = mutableListOf()
