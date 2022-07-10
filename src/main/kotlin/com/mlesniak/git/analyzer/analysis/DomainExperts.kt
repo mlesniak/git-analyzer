@@ -1,7 +1,6 @@
 package com.mlesniak.git.analyzer.analysis
 
 import com.mlesniak.git.analyzer.source.Commit
-import com.mlesniak.git.analyzer.source.Commits
 import java.io.File
 import java.util.SortedMap
 import java.util.regex.Pattern
@@ -14,7 +13,7 @@ typealias Occurences = Int
  * Map from package name to author, sorted by number of commits.
  */
 // TODO(mlesniak) Date configuration as second parameter to allow filtering for a subset of dates.
-class DomainExperts(private val commits: Commits) {
+class DomainExperts(private val commits: List<Commit>) {
     // TODO(mlesniak) Domain specific class
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
