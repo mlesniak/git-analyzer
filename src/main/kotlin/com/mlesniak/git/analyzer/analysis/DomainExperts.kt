@@ -24,8 +24,16 @@ class DomainExperts(private val commits: List<Commit>) {
         }
     }
 
-    fun get(): SortedMap<Package, Map<Author, Occurences>> {
-        return packages.toSortedMap()
+    fun get(): SortedMap<Package, SortedMap<Author, Occurences>> {
+        // There's probably a more efficient approach?
+        val sortedOccurences = packages.map { entry ->
+            val m = entry.value
+            val sortedOccurences = m.toSortedMap { a1, a2 -> m[a1]!!.compareTo(m[a2]!!) }
+            entry.key to sortedOccurences
+        }
+
+        val array = sortedOccurences.toTypedArray()
+        return sortedMapOf(*array)
     }
 
     private fun process(commit: Commit) {
