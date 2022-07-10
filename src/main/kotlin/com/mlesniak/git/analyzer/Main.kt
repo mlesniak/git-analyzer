@@ -2,6 +2,9 @@ package com.mlesniak.git.analyzer
 
 import com.mlesniak.git.analyzer.analysis.DomainExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
+import java.nio.file.Path
+import kotlin.io.path.isDirectory
+import kotlin.system.exitProcess
 
 // For later json export
 data class Package(
@@ -17,11 +20,12 @@ data class Author(
 )
 
 fun main(args: Array<String>) {
-    // TODO(mlesniak) Don't like this design: time consuming operation in constructor.
-    val parser = GitLogParser(args[0])
-    parser.readRepository()
-    val commits = parser.commits()
+    val gitRepositoryPath = validateCommandLine(args)
 
+    val parser = GitLogParser(gitRepositoryPath)
+    val commits = parser.readRepository()
+
+    // TODO(mlesniak) return cool structure for json parsing
     val domainExperts = DomainExperts(commits)
     domainExperts.analyze()
 
@@ -32,4 +36,17 @@ fun main(args: Array<String>) {
             println("  ${author.key}: ${author.value}")
         }
     }
+}
+
+private fun validateCommandLine(args: Array<String>): Path {
+    if (args.isEmpty()) {
+        println("No path to git repository provided")
+        exitProcess(1)
+    }
+    val gitRepositoryPath = Path.of(args[0])
+    if (!gitRepositoryPath.isDirectory()) {
+        println("Path is no a directory")
+        exitProcess(1)
+    }
+    return gitRepositoryPath
 }

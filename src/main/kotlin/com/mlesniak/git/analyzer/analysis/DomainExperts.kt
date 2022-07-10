@@ -9,10 +9,11 @@ typealias Package = String
 typealias Author = String
 typealias Occurences = Int
 
+// TODO(mlesniak) Date configuration as second parameter to allow filtering for a subset of dates.
+//                Cool date parsing using new time / date parser API
 /**
  * Map from package name to author, sorted by number of commits.
  */
-// TODO(mlesniak) Date configuration as second parameter to allow filtering for a subset of dates.
 class DomainExperts(private val commits: List<Commit>) {
     // TODO(mlesniak) Domain specific class
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
