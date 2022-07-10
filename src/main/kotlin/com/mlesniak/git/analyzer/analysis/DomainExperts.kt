@@ -18,8 +18,10 @@ class DomainExperts(private val commits: List<Commit>) {
     // TODO(mlesniak) Domain specific class
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
-    fun analyze() {
-        commits.forEach { process(it) }
+    init {
+        commits.forEach {
+            process(it)
+        }
     }
 
     fun get(): SortedMap<Package, Map<Author, Occurences>> {
@@ -39,11 +41,6 @@ class DomainExperts(private val commits: List<Commit>) {
             val count = m[commit.author] ?: 0
             m[commit.author] = count + 1
             packages[pckg] = m
-
-            // Sum up to parent packages
-            // org.junit.jupiter.api.extension.support
-
-            // find all packages
         }
     }
 

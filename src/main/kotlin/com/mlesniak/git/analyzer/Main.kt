@@ -1,5 +1,8 @@
 package com.mlesniak.git.analyzer
 
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.mlesniak.git.analyzer.analysis.Author
 import com.mlesniak.git.analyzer.analysis.DomainExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
 import java.nio.file.Path
@@ -25,17 +28,19 @@ fun main(args: Array<String>) {
     val parser = GitLogParser(gitRepositoryPath)
     val commits = parser.readRepository()
 
-    // TODO(mlesniak) return cool structure for json parsing
+    // When we have multiple analysis modules, use a proper
+    // command line parser.
     val domainExperts = DomainExperts(commits)
-    domainExperts.analyze()
+    val experts = domainExperts.get()
 
-    val m = domainExperts.get()
-    m.forEach { pckg ->
-        println("\n${pckg.key}")
-        for (author in pckg.value) {
-            println("  ${author.key}: ${author.value}")
-        }
-    }
+    printResult(experts)
+}
+
+private fun printResult(experts: Any) {
+    val mapper = jacksonObjectMapper()
+        .configure(SerializationFeature.INDENT_OUTPUT, true)
+    val json = mapper.writeValueAsString(experts)
+    println(json)
 }
 
 private fun validateCommandLine(args: Array<String>): Path {

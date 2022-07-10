@@ -54,7 +54,8 @@ class GitLogParser(private val repository: Path) {
             val matcher = filenamePattern.matcher(line)
             if (matcher.matches()) {
                 val filename = matcher.group(1)
-                filenames.add(filename)
+                val fullPath = repository.toAbsolutePath().toString() + "/" + filename
+                filenames.add(fullPath)
             }
         }
 

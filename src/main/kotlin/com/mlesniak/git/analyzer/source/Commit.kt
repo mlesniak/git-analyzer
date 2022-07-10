@@ -6,7 +6,7 @@ data class Commit(
     val id: String,
     val author: String,
     val date: Instant,
-    val filenames: List<String>,
+    val filenames: List<String>, // TODO(mlesniak) path
     val message: String,
 ) {
     override fun toString(): String {
