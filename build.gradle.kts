@@ -20,5 +20,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.mlesniak.main.MainKt")
+    mainClass.set("com.mlesniak.git.analyzer.MainKt")
 }
