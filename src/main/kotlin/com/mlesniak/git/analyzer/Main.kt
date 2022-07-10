@@ -16,8 +16,7 @@ fun main(args: Array<String>) {
 
     // When we have multiple analysis modules, use a proper
     // command line parser.
-    val domainExperts = PackageExperts(commits)
-    val experts = domainExperts.get()
+    val experts = PackageExperts(commits).get()
 
     printResult(experts)
 }
