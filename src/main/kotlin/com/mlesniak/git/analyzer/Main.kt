@@ -21,13 +21,6 @@ fun main(args: Array<String>) {
     printResult(experts)
 }
 
-private fun printResult(experts: Any) {
-    val mapper = jacksonObjectMapper()
-        .configure(SerializationFeature.INDENT_OUTPUT, true)
-    val json = mapper.writeValueAsString(experts)
-    println(json)
-}
-
 private fun validateCommandLine(args: Array<String>): Path {
     if (args.isEmpty()) {
         println("No path to git repository provided")
@@ -39,4 +32,11 @@ private fun validateCommandLine(args: Array<String>): Path {
         exitProcess(1)
     }
     return gitRepositoryPath
+}
+
+private fun printResult(experts: Any) {
+    val mapper = jacksonObjectMapper()
+        .configure(SerializationFeature.INDENT_OUTPUT, true)
+    val json = mapper.writeValueAsString(experts)
+    println(json)
 }
