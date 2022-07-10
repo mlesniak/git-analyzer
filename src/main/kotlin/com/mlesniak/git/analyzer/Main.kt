@@ -2,7 +2,7 @@ package com.mlesniak.git.analyzer
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.mlesniak.git.analyzer.analysis.DomainExperts
+import com.mlesniak.git.analyzer.analysis.PackageExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
 
     // When we have multiple analysis modules, use a proper
     // command line parser.
-    val domainExperts = DomainExperts(commits)
+    val domainExperts = PackageExperts(commits)
     val experts = domainExperts.get()
 
     printResult(experts)

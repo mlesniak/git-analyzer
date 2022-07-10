@@ -47,14 +47,14 @@ class GitLogParser(private val repository: Path) {
             message.append(lines[i].trim())
         }
 
-        val filenames = mutableListOf<String>()
+        val filenames = mutableListOf<Path>()
         val filenamePattern = Pattern.compile("diff --git a/(.*) b/.*")
         for (i in 3 until lines.size) {
             val line = lines[i]
             val matcher = filenamePattern.matcher(line)
             if (matcher.matches()) {
                 val filename = matcher.group(1)
-                val fullPath = repository.toAbsolutePath().toString() + "/" + filename
+                val fullPath = Path.of(repository.toAbsolutePath().toString(), filename)
                 filenames.add(fullPath)
             }
         }

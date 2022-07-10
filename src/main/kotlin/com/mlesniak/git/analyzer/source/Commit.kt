@@ -1,12 +1,13 @@
 package com.mlesniak.git.analyzer.source
 
+import java.nio.file.Path
 import java.time.Instant
 
 data class Commit(
     val id: String,
     val author: String,
     val date: Instant,
-    val filenames: List<String>, // TODO(mlesniak) path
+    val filenames: List<Path>,
     val message: String,
 ) {
     override fun toString(): String {

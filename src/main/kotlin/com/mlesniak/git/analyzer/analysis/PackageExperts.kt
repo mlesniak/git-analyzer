@@ -2,8 +2,11 @@ package com.mlesniak.git.analyzer.analysis
 
 import com.mlesniak.git.analyzer.source.Commit
 import java.io.File
+import java.nio.file.Path
 import java.util.SortedMap
 import java.util.regex.Pattern
+import kotlin.io.path.exists
+import kotlin.io.path.extension
 
 // Some helpful alias which we can't inline in the class.
 typealias Package = String
@@ -18,7 +21,7 @@ typealias Occurences = Int
  * To be useful for domain knowledge, we make the assumption that packages correspond
  * roughly to related business domains.
  */
-class DomainExperts(private val commits: List<Commit>) {
+class PackageExperts(commits: List<Commit>) {
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     init {
@@ -47,7 +50,7 @@ class DomainExperts(private val commits: List<Commit>) {
 
     private fun process(commit: Commit) {
         for (file in commit.filenames) {
-            if (fileDoesNotExist(file)) {
+            if (!file.exists()) {
                 continue
             }
 
@@ -61,13 +64,13 @@ class DomainExperts(private val commits: List<Commit>) {
         }
     }
 
-    private fun determinePackage(file: String): String? {
-        if (!(file.endsWith(".java") || file.endsWith(".kt"))) {
+    private fun determinePackage(file: Path): String? {
+        if (!(file.extension.endsWith("java") || file.extension.endsWith("kt"))) {
             return null
         }
 
         val pattern = Pattern.compile("\\s*package\\s+((\\w|\\.)+);?\$")
-        File(file).readLines().forEach { line ->
+        file.toFile().readLines().forEach { line ->
             val matcher = pattern.matcher(line)
             if (matcher.matches()) {
                 return matcher.group(1)
