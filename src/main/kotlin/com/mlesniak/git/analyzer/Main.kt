@@ -2,25 +2,11 @@ package com.mlesniak.git.analyzer
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.mlesniak.git.analyzer.analysis.Author
 import com.mlesniak.git.analyzer.analysis.DomainExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
 import kotlin.system.exitProcess
-
-// For later json export
-data class Package(
-    val name: String,
-    val authors: List<Author>
-) {
-
-}
-
-data class Author(
-    val name: String,
-    val occurences: Int
-)
 
 fun main(args: Array<String>) {
     val gitRepositoryPath = validateCommandLine(args)
