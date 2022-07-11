@@ -6,3 +6,6 @@ build/
 gradle/
 gradlew
 gradlew.bat
+
+#Ignore all generated files
+*.json
