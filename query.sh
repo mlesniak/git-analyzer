@@ -13,7 +13,7 @@ output=$(basename "$path").json
 
 if [ -e "$output" ]
 then
-  echo "Using existing output file $output. Delete this file to let it be generated again."
+  echo "Using existing output file $output. Delete this file to regenerate it"
 else
   echo "Generating output file $output"
   java -jar build/libs/git-analyzer-all.jar /Users/m/Documents/junit5 >"$output"
