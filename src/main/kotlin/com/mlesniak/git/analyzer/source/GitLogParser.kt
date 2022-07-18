@@ -2,6 +2,7 @@ package com.mlesniak.git.analyzer.source
 
 import java.nio.file.Path
 import java.text.SimpleDateFormat
+import java.time.ZoneId
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 import kotlin.io.path.isDirectory
@@ -37,7 +38,10 @@ class GitLogParser(private val repository: Path) {
         }
         val author = properties["Author"]!!
         val rawDate = properties["Date"]!!
-        val date = sdf.parse(rawDate).toInstant()
+        val date = sdf.parse(rawDate)
+            .toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
 
         val message = StringBuilder()
         for (i in lineIdx until lines.size) {

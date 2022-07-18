@@ -5,18 +5,27 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.mlesniak.git.analyzer.analysis.PackageExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
 import java.nio.file.Path
+import java.time.Period
 import kotlin.io.path.isDirectory
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val gitRepositoryPath = validateCommandLine(args)
 
+    var p: Period =
+        if (args.size == 2) {
+            println("Parsing period ${args[1]}")
+            Period.parse("P${args[1]}")
+        } else {
+            // 128 years in the past should be sufficient.
+            Period.ofYears(128)
+        }
+
     val parser = GitLogParser(gitRepositoryPath)
     val commits = parser.readRepository()
 
-    // When we have multiple analysis modules, use a proper
-    // command line parser.
-    val experts = PackageExperts(commits).get()
+    // TODO(mlesniak) Real command line parser
+    val experts = PackageExperts(commits, p).get()
 
     printResult(experts)
 }

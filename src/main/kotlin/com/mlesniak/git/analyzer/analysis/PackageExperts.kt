@@ -3,6 +3,8 @@ package com.mlesniak.git.analyzer.analysis
 import com.mlesniak.git.analyzer.source.Commit
 import java.io.File
 import java.nio.file.Path
+import java.time.LocalDateTime
+import java.time.Period
 import java.util.SortedMap
 import java.util.regex.Pattern
 import kotlin.io.path.exists
@@ -13,21 +15,24 @@ typealias Package = String
 typealias Author = String
 typealias Occurences = Int
 
-// TODO(mlesniak) Date configuration as second parameter to allow filtering for a subset of dates.
-//                Cool date parsing using new time / date parser API
 /**
  * Determine technical and domain experts for each package.
  *
  * To be useful for domain knowledge, we make the assumption that packages correspond
  * roughly to related business domains.
  */
-class PackageExperts(commits: List<Commit>) {
+class PackageExperts(
+    commits: List<Commit>,
+    period: Period = Period.ofYears(Int.MAX_VALUE)
+) {
     private var packages: MutableMap<Package, MutableMap<Author, Occurences>> = mutableMapOf()
 
     init {
-        commits.forEach {
-            process(it)
-        }
+        val minDate = LocalDateTime.now().minus(period)
+
+        commits
+            .filter { it.date.isAfter(minDate) }
+            .forEach { process(it) }
     }
 
     /**

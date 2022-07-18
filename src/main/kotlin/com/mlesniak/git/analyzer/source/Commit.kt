@@ -1,12 +1,12 @@
 package com.mlesniak.git.analyzer.source
 
 import java.nio.file.Path
-import java.time.Instant
+import java.time.LocalDateTime
 
 data class Commit(
     val id: String,
     val author: String,
-    val date: Instant,
+    val date: LocalDateTime,
     val filenames: List<Path>,
     val message: String,
 ) {
