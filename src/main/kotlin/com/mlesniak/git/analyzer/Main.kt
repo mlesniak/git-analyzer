@@ -12,9 +12,8 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
     val gitRepositoryPath = validateCommandLine(args)
 
-    var p: Period =
+    var period: Period =
         if (args.size == 2) {
-            println("Parsing period ${args[1]}")
             Period.parse("P${args[1]}")
         } else {
             // 128 years in the past should be sufficient.
@@ -24,8 +23,8 @@ fun main(args: Array<String>) {
     val parser = GitLogParser(gitRepositoryPath)
     val commits = parser.readRepository()
 
-    // TODO(mlesniak) Real command line parser
-    val experts = PackageExperts(commits, p).get()
+    // TODO(mlesniak) Real command line parser allow selection of modules
+    val experts = PackageExperts(commits, period).get()
 
     printResult(experts)
 }
