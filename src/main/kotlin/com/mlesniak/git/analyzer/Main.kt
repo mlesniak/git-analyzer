@@ -4,42 +4,44 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.mlesniak.git.analyzer.analysis.PackageExperts
 import com.mlesniak.git.analyzer.source.GitLogParser
+import kotlinx.cli.ArgParser
+import kotlinx.cli.ArgType
+import kotlinx.cli.default
+import kotlinx.cli.required
 import java.nio.file.Path
 import java.time.Period
 import kotlin.io.path.isDirectory
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    val gitRepositoryPath = validateCommandLine(args)
+    val parser = ArgParser("git-analyzer")
+    // TODO(mlesniak) Learn how this delegation is implemented internally.
+    // TODO(mlesniak) Choose analysis
+    val directory by parser.option(
+        ArgType.String,
+        shortName = "d",
+        description = "Source code directory",
+    ).required()
+    val period by parser.option(
+        ArgType.String,
+        shortName = "p",
+        description = "Period, e.g. 1y, 2w, 2w3d, ...",
+    ).default("128y")
+    parser.parse(args)
 
-    var period: Period =
-        if (args.size == 2) {
-            Period.parse("P${args[1]}")
-        } else {
-            // 128 years in the past should be sufficient.
-            Period.ofYears(128)
-        }
+    val internalPeriod = Period.parse("P$period")
+    val internalDirectory = Path.of(directory)
 
-    val parser = GitLogParser(gitRepositoryPath)
-    val commits = parser.readRepository()
-
-    // TODO(mlesniak) Real command line parser allow selection of modules
-    val experts = PackageExperts(commits, period).get()
-
-    printResult(experts)
-}
-
-private fun validateCommandLine(args: Array<String>): Path {
-    if (args.isEmpty()) {
-        println("No path to git repository provided")
-        exitProcess(1)
-    }
-    val gitRepositoryPath = Path.of(args[0])
-    if (!gitRepositoryPath.isDirectory()) {
+    if (!internalDirectory.isDirectory()) {
         println("Path is no a directory")
         exitProcess(1)
     }
-    return gitRepositoryPath
+    val gitLogParser = GitLogParser(internalDirectory)
+    val commits = gitLogParser.readRepository()
+
+    val experts = PackageExperts(commits, internalPeriod).get()
+
+    printResult(experts)
 }
 
 private fun printResult(experts: Any) {
