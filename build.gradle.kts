@@ -21,6 +21,14 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
 }
 
+task<Exec>("exec") {
+    commandLine("sh", "-c", "scripts/make-executable.sh build/libs/*-all.jar")
+}
+
+tasks.build {
+    finalizedBy("exec")
+}
+
 application {
     mainClass.set("com.mlesniak.git.analyzer.MainKt")
 }
