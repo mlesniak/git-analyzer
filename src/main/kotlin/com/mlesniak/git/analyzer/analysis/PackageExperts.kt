@@ -1,7 +1,6 @@
 package com.mlesniak.git.analyzer.analysis
 
 import com.mlesniak.git.analyzer.source.Commit
-import java.io.File
 import java.nio.file.Path
 import java.time.LocalDateTime
 import java.time.Period
@@ -10,7 +9,7 @@ import java.util.regex.Pattern
 import kotlin.io.path.exists
 import kotlin.io.path.extension
 
-// Some helpful alias which we can't inline in the class.
+// Helpful aliases which we can't inline in the class.
 typealias Package = String
 typealias Author = String
 typealias Occurences = Int
@@ -18,8 +17,8 @@ typealias Occurences = Int
 /**
  * Determine technical and domain experts for each package.
  *
- * To be useful for domain knowledge, we make the assumption that packages correspond
- * roughly to related business domains.
+ * To be useful for domain knowledge, we make the assumption that
+ * packages correspond roughly to related business domains.
  */
 class PackageExperts(
     commits: List<Commit>,
@@ -84,6 +83,4 @@ class PackageExperts(
 
         return null
     }
-
-    private fun fileDoesNotExist(file: String) = !File(file).exists()
 }

@@ -87,6 +87,7 @@ class GitLogParser(private val repository: Path) {
             commit.add(line)
         }
 
+        // Add final commit as well.
         commits.add(commit)
 
         return commits
