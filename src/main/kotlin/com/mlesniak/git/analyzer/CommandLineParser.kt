@@ -36,7 +36,7 @@ data class Configuration(
                 ArgType.Choice<Analysis>(),
                 shortName = "a",
                 description = "Analysis to execute"
-            ).required()
+            ).default(Analysis.PackageExperts)
             parser.parse(args)
 
             val internalPeriod = Period.parse("P$period")
