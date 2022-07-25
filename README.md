@@ -36,7 +36,7 @@ By default, you only need to provide a directory pointing to a git repository. F
 
 ```
 $ git clone https://github.com/junit-team/junit5.git /tmp/junit5
-$ ./git-analyzer -- directory /tmp/junit5
+$ ./git-analyzer --directory /tmp/junit5
 
 {
 <a lot of json output>
