@@ -32,7 +32,7 @@ Options:
 ```
 
 By default, you only need to provide a directory pointing to a git repository. For example, to gather statistics for
-[Junit5](https://github.com/junit-team/junit5) using the current default analyzer, write
+[JUnit5](https://github.com/junit-team/junit5) using the current default analyzer, write
 
 ```
 $ git clone https://github.com/junit-team/junit5.git /tmp/junit5
