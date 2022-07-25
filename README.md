@@ -67,7 +67,7 @@ months via `--period 3m` etc.
 This repository also provides an exemplary script which shows how to use the JSON output in combination which modern
 UNIX tools like `jq` and `fzf`. See `scripts/query.sh`:
 
-<script id="asciicast-Ovmo2kG5uIxwMherkBIdqTQPT" src="https://asciinema.org/a/Ovmo2kG5uIxwMherkBIdqTQPT.js" async></script>
+[![asciicast](https://asciinema.org/a/Ovmo2kG5uIxwMherkBIdqTQPT.svg)](https://asciinema.org/a/Ovmo2kG5uIxwMherkBIdqTQPT)
 
 ## Modules
 
