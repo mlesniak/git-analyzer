@@ -73,12 +73,12 @@ UNIX tools like `jq` and `fzf`. See `scripts/query.sh`:
 
 TODO
 
-# TODO
+## Open topics
 
 - Write tests
 - Add more modules, e.g. files often changed together, most changed files per package, ...
 
-# License
+## License
 
 The source code is licensed under
 the [Apache license](https://raw.githubusercontent.com/mlesniak/git-analyzer/main/LICENSE)
