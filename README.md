@@ -64,7 +64,10 @@ months via `--period 3m` etc.
 
 ## Example: Interactive filtering with jq and fzf
 
-TODO
+This repository also provides an exemplary script which shows how to use the JSON output in combination which modern
+UNIX tools like `jq` and `fzf`. See `scripts/query.sh`:
+
+<script id="asciicast-Ovmo2kG5uIxwMherkBIdqTQPT" src="https://asciinema.org/a/Ovmo2kG5uIxwMherkBIdqTQPT.js" async></script>
 
 ## Modules
 
@@ -72,8 +75,8 @@ TODO
 
 # TODO
 
-- Complete documentation
 - Write tests
+- Add more modules, e.g. files often changed together, most changed files per package, ...
 
 # License
 
