@@ -59,7 +59,7 @@ The package `platform.tooling.support.tests` has been edited by five different a
 commits (113) and could be considered the technial and/or domain experts; note that this analysis might be skewed by "
 team accounts" such as the "JUnit Team", so be aware of that.
 
-By specifying `--perdiod` you can restrict analysis to a specific period, e.g. last 100 days via `--period 100d`, last 3
+By specifying `--period` you can restrict analysis to a specific period, e.g. last 100 days via `--period 100d`, last 3
 months via `--period 3m` etc.
 
 ## Example: Interactive filtering with jq and fzf
