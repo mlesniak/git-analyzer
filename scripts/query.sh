@@ -37,7 +37,7 @@ then
   period="-p $2"
 fi
 
-output=$(basename "$path")$2.json
+output=$(basename "$path")-$2.json
 
 if [ -e "$output" ]
 then

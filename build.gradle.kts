@@ -25,8 +25,17 @@ task<Exec>("exec") {
     commandLine("sh", "-c", "scripts/make-executable.sh build/libs/*-all.jar")
 }
 
+task<Exec>("rmExec") {
+    commandLine("sh", "-c", "rm -f $(basename $(pwd))")
+}
+
+
 tasks.build {
     finalizedBy("exec")
+}
+
+tasks.clean {
+    finalizedBy("rmExec")
 }
 
 application {
