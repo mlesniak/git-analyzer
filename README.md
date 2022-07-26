@@ -75,8 +75,7 @@ UNIX tools like `jq` and `fzf`. See `scripts/query.sh`:
 
 ### packageexperts
 
-Splits up the code base by packages and determines domain (and/or technical) experts by number of commits. Currently,
-does not take renamed files into account.
+Splits up the code base by packages and determines experts via their respective number of commits. Currently, does not take renamed files into account.
 
 ## Open topics
 
