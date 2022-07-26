@@ -100,7 +100,8 @@ class GitLogParser(private val repository: Path) {
             path.toFile()
         )
         return process
-            .inputReader()
+            .inputStream
+            .bufferedReader()
             .lines()
             .collect(Collectors.toList())
     }
