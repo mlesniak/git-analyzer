@@ -29,7 +29,6 @@ task<Exec>("rmExec") {
     commandLine("sh", "-c", "rm -f $(basename $(pwd))")
 }
 
-
 tasks.build {
     finalizedBy("exec")
 }

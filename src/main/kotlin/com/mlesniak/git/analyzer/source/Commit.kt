@@ -21,7 +21,7 @@ data class Commit(
             
             $message
             
-        """.trimIndent()
+            """.trimIndent()
         )
         for (filename in filenames) {
             sb.append("- $filename\n")
@@ -30,4 +30,3 @@ data class Commit(
         return sb.toString()
     }
 }
-
