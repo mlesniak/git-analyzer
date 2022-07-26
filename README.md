@@ -58,8 +58,7 @@ $ ./git-analyzer --directory /tmp/junit5
 ```
 
 The package `platform.tooling.support.tests` has been edited by five different accounts and Marc Philipp had the most
-commits (113) and could be considered the technial expert; note that this analysis might be skewed by "
-team accounts" such as the "JUnit Team", so be aware of that.
+commits (113) and could be considered the technial expert; note that this analysis might be skewed by team accounts such as the "JUnit Team", so be aware of that.
 
 By specifying `--period` you can restrict analysis to a specific period, e.g. last 100 days via `--period 100d`, last 3
 months via `--period 3m` etc.
