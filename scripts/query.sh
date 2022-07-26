@@ -21,7 +21,7 @@ then
 
   You have to specify a git repository path (and an optional period to analyze, e.g. last 100 days via "100d").
   You'll then be presented with a list of packages which have been touched in the period, can filter interactively
-  and show all commiters ("domain experts") for this package.
+  and show all committers (technical experts) for this package.
 
   Note that the json output of git-analyzer for a particular period is cached in a .json file which is stored
   in the current directory. To rebuild, e.g. because the underlying repository has been updated, simply remove it.
@@ -50,4 +50,6 @@ fi
 echo
 # shellcheck disable=SC2094
 # shellcheck disable=SC2046
-jq .$(jq 'keys[]' <"$output"|fzf) <"$output"
+package=$(jq 'keys[]' <"$output"|fzf)
+echo "Technical experts for package '$package', sorted by number of commits:"
+jq ."$package" <"$output"
