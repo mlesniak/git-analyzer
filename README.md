@@ -15,7 +15,7 @@ gradle build
 ```
 
 Note that in addition to the usual output in the `build/` directory a standalone executable file `git-analyzer` will be
-created in the code's root directory as well (and removed on a `gradle clean`).
+created in the code's root directory as well (and removed on `gradle clean`).
 
 ## Run
 
