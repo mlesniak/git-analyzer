@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # Overview
 
 The modification history of a program is represented by its version control log and can be a huge source of interesting
@@ -71,11 +73,15 @@ UNIX tools like `jq` and `fzf`. See `scripts/query.sh`:
 
 ## Modules
 
-TODO
+### packageexperts
+
+Splits up the code base by packages and determines domain (and/or technical) experts by number of commits. Currently,
+does not take renamed files into account.
 
 ## Open topics
 
 - Write tests
+- Build via GitHub actions
 - Add more modules, e.g. files often changed together, most changed files per package, ...
 
 ## License
